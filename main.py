@@ -1,47 +1,65 @@
 import torch
 
-my_torch = torch.arange(10)
-print(my_torch)
+tensor_a = torch.tensor([1, 2, 3, 4])
+tensor_b = torch.tensor([5, 6, 7, 8])
 
-# my_torch.reshape(2, 6) # doesn't work! Intentional, the number pair doesn't equal to 10, 2 x 6 = 12, not 10
+# Addition
+print(tensor_a + tensor_b)
 
-my_torch2 = torch.arange(10)
-print(my_torch2)
+# Addition Longhand
+print(torch.add(tensor_a, tensor_b))
 
-my_torch2 = my_torch2.reshape(2, -1)
-print(my_torch2)
+# Subtraction
+print(tensor_b - tensor_a)
 
-my_torch3 = torch.arange(10)
-print(my_torch3)
+# Subtraction Longhand
+print(torch.sub(tensor_b, tensor_a))
+print(torch.subtract(tensor_b, tensor_a))
 
-my_torch4 = my_torch3.view(2, 5)
-print(my_torch4)
+# Multiplication
+print(tensor_a * tensor_b)
 
-# When you use reshape or view, the tensor will update
+# Multilplication Longhand
+print(torch.mul(tensor_a, tensor_b))
+print(torch.multiply(tensor_a, tensor_b))
 
-my_torch5 = torch.arange(10)
-print(my_torch5)
+# Division
+print(tensor_b / tensor_a)
 
-my_torch6 = my_torch5.reshape(2, 5)
-print(my_torch6)
+# Division Longhand
+print(torch.div(tensor_b, tensor_a))
+print(torch.divide(tensor_b, tensor_a))
 
-my_torch5[1] = 1234  # my_torch6 will update if we print it out after we change the value.
-print(my_torch5)
-print(my_torch6)
+# Modulus / Remainders
+print(tensor_b % tensor_a)
 
-# Slices
-my_torch7 = torch.arange(10)
-print(my_torch7)
+# Modulus / Remainders Longhand
+print(torch.remainder(tensor_b, tensor_a))
 
-# Grab a specific item
-print(my_torch7[7])
+# Exponents
+print(tensor_a ** tensor_b)
 
-# Grab a slice
-my_torch8 = my_torch7.reshape(5, 2)
-print(my_torch8)
+# Exponents Longhand
+print(torch.pow(tensor_a, tensor_b))
 
-# Returns Row
-print(my_torch8[:, 1])
+# Another way to write Longhand Operations, but SHORT TERM. Does NOT save operation in tensor_a
+tensor_a.add(tensor_b)
+tensor_a.sub(tensor_b)
+tensor_a.subtract(tensor_b)
+tensor_a.mul(tensor_b)
+tensor_a.multiply(tensor_b)
+tensor_a.div(tensor_b)
+tensor_a.divide(tensor_b)
+tensor_a.remainder(tensor_b)
+tensor_a.pow(tensor_b)
 
-# Returns Column
-print(my_torch8[:, 1:])
+# Another way to write Longhand Operations, but LONG TERM. DOES save operation in tensor_a
+tensor_a.add_(tensor_b)
+tensor_a.sub_(tensor_b)
+tensor_a.subtract_(tensor_b)
+tensor_a.mul_(tensor_b)
+tensor_a.multiply_(tensor_b)
+tensor_a.div_(tensor_b)
+tensor_a.divide_(tensor_b)
+tensor_a.remainder_(tensor_b)
+tensor_a.pow_(tensor_b)
