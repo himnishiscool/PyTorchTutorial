@@ -1,65 +1,35 @@
 import torch
+import torch.nn as nn
+import torch.nn.functional as F
 
-tensor_a = torch.tensor([1, 2, 3, 4])
-tensor_b = torch.tensor([5, 6, 7, 8])
+# Create a Model Class that inherits nn.Module
 
-# Addition
-print(tensor_a + tensor_b)
 
-# Addition Longhand
-print(torch.add(tensor_a, tensor_b))
+class Model(nn.Module):
+    # Input layer (4 features of the flower) -->
+    # Hidden Layer 1 (Number of neurons) -->
+    # Hidden Layer 2 (Number of Neurons) -->
+    # Output (3 types of Iris flowers)
 
-# Subtraction
-print(tensor_b - tensor_a)
+    def __init__(self, input_features=4, h1=8, h2=8, output_features=3):
+        # instantiate out __init__
+        super().__init__()
+        # FC means FULLY CONNECTED
+        self.fc1 = nn.Linear(input_features, h1)
+        self.fc2 = nn.Linear(h1, h2)
+        self.out = nn.Linear(h2, output_features)
 
-# Subtraction Longhand
-print(torch.sub(tensor_b, tensor_a))
-print(torch.subtract(tensor_b, tensor_a))
+    def forward(self, x):
+        # Moves FORWARD through each FULLY CONNECTED LAYER, then the OUTPUT
+        x = F.relu(self.fc1(x))
+        x = F.relu(self.fc2(x))
+        x = self.out(x)
 
-# Multiplication
-print(tensor_a * tensor_b)
+        return x
 
-# Multilplication Longhand
-print(torch.mul(tensor_a, tensor_b))
-print(torch.multiply(tensor_a, tensor_b))
 
-# Division
-print(tensor_b / tensor_a)
+# Pick a manual seed for RANDOMIZATION
+# Why is because we NEED to TELL it WHERE TO START BEFORE RANDOMIZATION
+torch.manual_seed(41)
 
-# Division Longhand
-print(torch.div(tensor_b, tensor_a))
-print(torch.divide(tensor_b, tensor_a))
-
-# Modulus / Remainders
-print(tensor_b % tensor_a)
-
-# Modulus / Remainders Longhand
-print(torch.remainder(tensor_b, tensor_a))
-
-# Exponents
-print(tensor_a ** tensor_b)
-
-# Exponents Longhand
-print(torch.pow(tensor_a, tensor_b))
-
-# Another way to write Longhand Operations, but SHORT TERM. Does NOT save operation in tensor_a
-tensor_a.add(tensor_b)
-tensor_a.sub(tensor_b)
-tensor_a.subtract(tensor_b)
-tensor_a.mul(tensor_b)
-tensor_a.multiply(tensor_b)
-tensor_a.div(tensor_b)
-tensor_a.divide(tensor_b)
-tensor_a.remainder(tensor_b)
-tensor_a.pow(tensor_b)
-
-# Another way to write Longhand Operations, but LONG TERM. DOES save operation in tensor_a
-tensor_a.add_(tensor_b)
-tensor_a.sub_(tensor_b)
-tensor_a.subtract_(tensor_b)
-tensor_a.mul_(tensor_b)
-tensor_a.multiply_(tensor_b)
-tensor_a.div_(tensor_b)
-tensor_a.divide_(tensor_b)
-tensor_a.remainder_(tensor_b)
-tensor_a.pow_(tensor_b)
+model = Model()
